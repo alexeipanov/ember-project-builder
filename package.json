@@ -1,0 +1,19 @@
+{
+  "name": "e-skeleton",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bin/index.js",
+  "bin": {
+    "skeleton": "bin/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "command-line-args": "^6.0.0",
+    "yaml": "^2.5.0"
+  }
+}
