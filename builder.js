@@ -22,8 +22,7 @@ class Node {
       return {};
     }
 
-    return Object.entries(value)
-      .filter(([key]) => key !== type);
+    return Object.entries(value).filter(([key]) => key !== type);
   }
 
   hasNested(type) {
@@ -33,10 +32,6 @@ class Node {
 }
 
 class genericBuilder {
-  constructor(defaultFlags) {
-    this.defaultFlags = defaultFlags;
-  }
-
   walk(nodes, parents = []) {
     nodes.forEach((node) => {
       let entity = new Node(node);
@@ -49,7 +44,7 @@ class genericBuilder {
   }
 
   path(parents = []) {
-    return parents.reduce((path, element) => `${path}/${element}/`, '');
+    return parents.length ? `${parents.join('/')}/` : '';
   }
 
   build(type, parents, params) {}
@@ -75,17 +70,17 @@ class RouteBuilder extends genericBuilder {
     this.type = 'routes';
   }
 
-  customFlags(params) {
+  options(params) {
     let _params = Object.values(params);
     if (!_params.length) {
       return '';
     }
 
-    return _params.reduce((command, [flag, value]) => `${command} --${flag}=${value}`, '');
+    return _params.reduce((command, [option, value]) => `${command} --${option}=${value}`, '');
   }
 
   build(route, parents, params) {
-    this.run(`pnpm exec ember g route ${this.path(parents)}${route} ${this.defaultFlags}${this.customFlags(params)}`);
+    this.run(`flock app/router.js ember g route ${this.path(parents)}${route} ${this.options(params)}`);
   }
 }
 
@@ -96,7 +91,7 @@ class ControllerBuilder extends genericBuilder {
   }
 
   build(controller, parents) {
-    this.run(`pnpm exec ember g controller ${this.path(parents)}${controller} ${this.defaultFlags}`);
+    this.run(`ember g controller ${this.path(parents)}${controller}`);
   }
 }
 
@@ -106,17 +101,17 @@ class ModelBuilder extends genericBuilder {
     this.type = 'models';
   }
 
-  customFlags(params) {
+  options(params) {
     let _params = Object.values(params);
     if (!_params.length) {
       return '';
     }
 
-    return _params.reduce((command, [flag, value]) => `${command} ${value}`, '');
+    return _params.reduce((command, [option, value]) => `${command} ${option}:${value}`, '');
   }
 
   build(model, parents, params) {
-    this.run(`pnpm exec ember g model ${this.path(parents)}${model} ${this.defaultFlags}${this.customFlags(params)}`);
+    this.run(`ember g model ${this.path(parents)}${model} ${this.options(params)}`);
   }
 }
 
@@ -127,7 +122,7 @@ class TemplateBuilder extends genericBuilder {
   }
 
   build(template, parents) {
-    this.run(`pnpm exec ember g template ${this.path(parents)}${template} ${this.defaultFlags}`);
+    this.run(`pnpm exec ember g template ${this.path(parents)}${template}`);
   }
 }
 
@@ -137,17 +132,17 @@ class ComponentBuilder extends genericBuilder {
     this.type = 'components';
   }
 
-  customFlags(params) {
+  options(params) {
     let _params = Object.values(params);
     if (!_params.length) {
       return '';
     }
 
-    return _params.reduce((command, [flag, value]) => `${command} --${flag}=${value}`, '');
+    return _params.reduce((command, [option, value]) => `${command} --${option}=${value}`, '');
   }
 
   build(component, parents, params) {
-    this.run(`pnpm exec ember g component ${this.path(parents)}${component} ${this.defaultFlags}${this.customFlags(params)}`);
+    this.run(`pnpm exec ember g component ${this.path(parents)}${component} ${this.options(params)}`);
   }
 }
 
@@ -155,38 +150,29 @@ class BatchBuilder {
   types = ['routes', 'models', 'controllers', 'templates', 'components']
 
   constructor(yaml) {
-    this.defaultFlags = yaml.defaultFlags;
     const allowedEntries = Object.entries(yaml).filter(([key]) => this.types.includes(key));
     Object.assign(this, Object.fromEntries(allowedEntries));
   }
-
-
-  get defaultFlagsLine() {
-    let pairs = Object.entries(this.defaultFlags || {});
-    return pairs.reduce((command, [flag, value]) => `${command} --${flag}=${value}`, '');
-  }
   
   build() {
-    const defaultFlags = this.defaultFlagsLine;
-
     if (this.hasOwnProperty('routes')) {
-      new RouteBuilder(defaultFlags).walk(this.routes);
+      new RouteBuilder().walk(this.routes);
     }
 
     if (this.hasOwnProperty('models')) {
-      new ModelBuilder(defaultFlags).walk(this.models);
+      new ModelBuilder().walk(this.models);
     }
 
     if (this.hasOwnProperty('controllers')) {
-      new ControllerBuilder(defaultFlags).walk(this.controllers);
+      new ControllerBuilder().walk(this.controllers);
     }
 
     if (this.hasOwnProperty('templates')) {
-      new TemplateBuilder(defaultFlags).walk(this.templates);
+      new TemplateBuilder().walk(this.templates);
     }
 
     if (this.hasOwnProperty('components')) {
-      new ComponentBuilder(defaultFlags).walk(this.components);
+      new ComponentBuilder().walk(this.components);
     }
   }
 }
