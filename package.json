@@ -2,9 +2,9 @@
   "name": "ember-project-builder",
   "version": "1.0.0",
   "description": "Ember CLI tool to batch run generate blueprints",
-  "main": "bin/index.js",
+  "main": "bin/ember-project-builder.js",
   "bin": {
-    "builder": "bin/index.js"
+    "builder": "bin/ember-project-builder.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
