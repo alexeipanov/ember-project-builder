@@ -1,13 +1,13 @@
 {
   "name": "ember-project-builder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Ember CLI tool to batch run generate blueprints",
   "main": "bin/ember-project-builder.js",
   "bin": {
     "builder": "bin/ember-project-builder.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint ."
   },
   "keywords": [
     "ember-addon",
@@ -25,9 +25,6 @@
   "author": {
     "name": "Alexei Panov",
     "email": "a8panov@gmail.com"
-  },
-  "scripts": {
-    "lint": "eslint ."
   },
   "dependencies": {
     "command-line-args": "^6.0.0",
