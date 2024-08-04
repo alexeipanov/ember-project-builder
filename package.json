@@ -1,19 +1,41 @@
 {
-  "name": "e-skeleton",
+  "name": "ember-project-builder",
   "version": "1.0.0",
-  "description": "",
+  "description": "Ember CLI tool to batch run generate blueprints",
   "main": "bin/index.js",
   "bin": {
-    "skeleton": "bin/index.js"
+    "builder": "bin/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "ember-addon",
+    "ember",
+    "ember-cli",
+    "generate",
+    "project",
+    "yaml"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexeipanov/ember-project-builder.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Alexei Panov",
+    "email": "a8panov@gmail.com"
+  },
+  "scripts": {
+    "lint": "eslint ."
+  },
   "dependencies": {
     "command-line-args": "^6.0.0",
     "yaml": "^2.5.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.8.0",
+    "eslint": "^9.8.0",
+    "globals": "^15.9.0"
   }
 }

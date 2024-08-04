@@ -1,0 +1,15 @@
+# compiled output
+/tmp/
+
+# packages
+/.pnpm-store
+
+# misc
+/.editorconfig
+/.eslintcache
+/.eslintignore
+/.git/
+/.github/
+/.gitignore
+/.npmrc
+/CONTRIBUTING.md

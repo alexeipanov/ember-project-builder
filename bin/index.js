@@ -1,9 +1,10 @@
 #! /usr/bin/env node
-
 const YAML = require('yaml');
 const fs = require('node:fs');
 const commandLineArgs = require('command-line-args');
 const { BatchBuilder } = require('../builder');
+
+this.name = 'ember-project-builder';
 
 let mergeOptions;
 const mainDefinitions = [
@@ -18,8 +19,8 @@ if (mainOptions.command === 'build') {
   ];
   mergeOptions = commandLineArgs(mergeDefinitions, { argv });
 } else {
-	console.log('Unknown command!');
-	return;
+    console.log('Unknown command!');
+    return;
 }
 
 console.log(`proceed build --file ${mergeOptions.file}`);

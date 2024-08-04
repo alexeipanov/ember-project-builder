@@ -1,4 +1,4 @@
-const { exec } = require("child_process");
+const { exec } = require('child_process');
 
 class Node {
   constructor(node) {
@@ -14,9 +14,12 @@ class Node {
       let [ pair ] = Object.entries(this.node);
       return pair;
     }
+
+    return [null, null];
   }
 
   params(type) {
+    // eslint-disable-next-line no-unused-vars
     let [key, value] = this.pair;
     if (!value) {
       return {};
@@ -26,6 +29,7 @@ class Node {
   }
 
   hasNested(type) {
+    // eslint-disable-next-line no-unused-vars
     let [key, value] = this.pair;
     return value && Array.isArray(value[type]);
   }
@@ -47,7 +51,7 @@ class genericBuilder {
     return parents.length ? `${parents.join('/')}/` : '';
   }
 
-  build(type, parents, params) {}
+  build() {}
 
   run(command) {
     exec(command, (error, stdout, stderr) => {
@@ -155,23 +159,23 @@ class BatchBuilder {
   }
   
   build() {
-    if (this.hasOwnProperty('routes')) {
+    if (Object.prototype.hasOwnProperty.call(this, 'routes')) {
       new RouteBuilder().walk(this.routes);
     }
 
-    if (this.hasOwnProperty('models')) {
+    if (Object.prototype.hasOwnProperty.call(this, 'models')) {
       new ModelBuilder().walk(this.models);
     }
 
-    if (this.hasOwnProperty('controllers')) {
+    if (Object.prototype.hasOwnProperty.call(this, 'controllers')) {
       new ControllerBuilder().walk(this.controllers);
     }
 
-    if (this.hasOwnProperty('templates')) {
+    if (Object.prototype.hasOwnProperty.call(this, 'templates')) {
       new TemplateBuilder().walk(this.templates);
     }
 
-    if (this.hasOwnProperty('components')) {
+    if (Object.prototype.hasOwnProperty.call(this, 'components')) {
       new ComponentBuilder().walk(this.components);
     }
   }
