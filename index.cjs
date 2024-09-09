@@ -215,4 +215,9 @@ class BatchBuilder {
   }
 }
 
-module.exports = { RouteNode, RouteBuilder, BatchBuilder };
+module.exports = {
+  name: "ember-project-builder",
+  RouteNode,
+  RouteBuilder,
+  BatchBuilder
+};
