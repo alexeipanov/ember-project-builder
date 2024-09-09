@@ -215,4 +215,4 @@ class BatchBuilder {
   }
 }
 
-export { RouteNode, RouteBuilder, BatchBuilder };
+module.exports = { RouteNode, RouteBuilder, BatchBuilder };

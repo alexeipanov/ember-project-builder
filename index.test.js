@@ -1,4 +1,4 @@
-import { RouteNode, RouteBuilder, BatchBuilder } from './index.js';
+import { RouteNode, RouteBuilder, BatchBuilder } from './index.cjs';
 import { describe, expect, test } from '@jest/globals';
 
 const tree = {

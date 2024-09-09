@@ -2,10 +2,9 @@
   "name": "ember-project-builder",
   "version": "1.0.2",
   "description": "Ember CLI tool to batch run generate blueprints",
-  "main": "index.js",
-  "type": "module",
+  "main": "index.cjs",
   "bin": {
-    "project": "bin/project.js"
+    "project": "bin/project.cjs"
   },
   "scripts": {
     "lint": "eslint .",
